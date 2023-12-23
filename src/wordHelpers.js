@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { Paragraph, PatchType, TextRun, patchDocument } from "docx";
 import libreoffice from "libreoffice-convert";
+import { promisify } from "util";
+let convertAsync = promisify(libreoffice.convert);
 
 export function readTemplateFile(track, level) {
 	return readFileSync(`${process.cwd()}/templates/${track} ${level}.docx`);
@@ -128,16 +130,13 @@ export async function generateCertificate(document, fileName) {
 
 	writeFileSync(wordPath, document);
 
-	convertToPdf(wordPath, pdfPath);
+	await convertToPdf(wordPath, pdfPath);
 }
 
-function convertToPdf(wordPath, pdfPath) {
+async function convertToPdf(wordPath, pdfPath) {
 	const file = readFileSync(wordPath);
-	libreoffice.convert(file, ".pdf", undefined, (err, doc) => {
-		if (err) {
-			console.log(`Error converting file: ${err}`);
-		}
 
-		writeFileSync(pdfPath, doc);
-	});
+	const pdfDoc = await convertAsync(file, ".pdf", undefined);
+
+	writeFileSync(pdfPath, pdfDoc);
 }
