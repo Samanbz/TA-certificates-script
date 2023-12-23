@@ -1,46 +1,59 @@
 # Certificates Script
 
-This project creates certificates for the participants of TechAcademy
+This project creates certificates for the participants of TechAcademy and sends them with email
 
 ## Installation
 
-Um dieses Projekt zu verwenden, lade es zunächst von GitHub herunter und installiere dann die erforderlichen Abhängigkeiten. Außerdem musst du auf deinem Rechner [libreoffice](https://de.libreoffice.org/download/download/) installiert haben, damit man die .docx Dateien in .pdf umwandeln kann.
+To use this project, first download it from GitHub and then install the required dependencies. Also, you must have [libreoffice](https://de.libreoffice.org/download/download/) installed on your computer so that you can convert the .docx files into .pdf.
 
-### Schritte zum Installieren des Projekts:
+### Steps to install the project:
 
-1. Klone das Projekt
+1. Clone the project
 
 ```bash
 git clone https://github.com/tburakonat/certificates.git
 ```
 
-2. Führe den folgenden Befehl im Repository aus, um die Abhängigkeiten zu installieren:
+2. Install the dependencies
 
 ```bash
 npm install
 ```
 
-### Libreoffice installieren
+### Install Libreoffice
 
-Damit du am Ende die erstellten .docx Dateien in .pdf umwandeln kannst musst du das Programm libreoffice installieren.
+In order to convert the created .docx files into .pdf at the end, you need to install the libreoffice program.
 
-## Dateien ablegen
+### Mailversand vorbereiten
+
+With this program, you can also directly send the certificates by email. For this, you need to create a .env file and add two variables. One variable is the email address from which you want to send the certificates and the other variable is your password, which you have to get from the Google Account Manager.
+
+You can follow these steps to get your app password:
+
+1. Log in to your Google account
+2. Go to security
+3. Under Signing in to Google enable 2-Step Verification
+4. Under Signing in to Google click on App passwords.
+5. You'll now generate a new password. Select the app as Mail and the device as Other (Custom name) and name it.
+6. Save the app password in the .env file
+
+## Save Templates
 
 ### Excel Template
 
-Damit das Skript funktioniert, musst du in den Ordner `data` die Excel mit den Bewertungen ablegen. Achte darauf, dass die Datei den Namen `Bewertungen.xlsx` hat. Die Excel Datei muss folgende Spalten in der richtigen Reihenfolge aufweisen außerdem müssen die einzelnen Zeilen im richtigen Format stehen:
+For the script to work, you need to place the Excel file with the ratings in the `data` folder. Make sure that the file is named `Bewertungen.xlsx`. The Excel file must have the following columns in the correct order and the individual rows must be in the correct format:
 
-| Vorname | Nachname   | Track                   | Level           | Workshops                      |
-| ------- | ---------- | ----------------------- | --------------- | ------------------------------ |
-| John    | Doe        | Web Development         | Anfänger        | [Unternehmen 1, Unternehmen 2] |
-| Max     | Mustermann | Data Science mit R      | Fortgeschritten | [Unternehmen 1]                |
-| Lisa    | Musterfrau | Data Science mit Python | Anfänger        | []                             |
+| Vorname | Nachname   | Track                   | Level           | Workshops                      | Email             |
+| ------- | ---------- | ----------------------- | --------------- | ------------------------------ | ----------------- |
+| John    | Doe        | Web Development         | Anfänger        | [Unternehmen 1, Unternehmen 2] | email@adresse.com |
+| Max     | Mustermann | Data Science mit R      | Fortgeschritten | [Unternehmen 1]                | email@adresse.com |
+| Lisa    | Musterfrau | Data Science mit Python | Anfänger        | []                             | email@adresse.com |
 
 ### Word Templates
 
-Neben dem Excel Template müssen auch die Word Templates gegeben sein. Für jeden Track und für jedes Niveau muss ein Word Template im `templates` Ordner abgelegt werden.
+In addition to the Excel template, the Word templates must also be provided. For each track and for each level, a Word template must be placed in the `templates` folder.
 
-In dem Template muss man folgende Variablen einsetzen, damit das Skript diese ausfüllen kann.
+In the template, you must insert the following variables so that the script can fill them out.
 
 -   {{name}}
 -   {{track}}
@@ -48,10 +61,10 @@ In dem Template muss man folgende Variablen einsetzen, damit das Skript diese au
 -   {{workshops}}
 -   {{workshopsList}}
 
-Die Variable {{workshops}} rendert den String ({{data.firstName}} also took part in workshops with the following companies:), falls die Person mindestens einen Workshop besucht hat.
+The variable {{workshops}} renders the string ({{data.firstName}} also took part in workshops with the following companies:), if the person has attended at least one workshop.
 
-Die Variable {{workshopsList}} erstellt für jeden besuchten Workshop ein Stichpunkt falls die Person mindestens einen Workshop besucht hat.
+The variable {{workshopsList}} creates a bullet point for each workshop attended if the person has attended at least one workshop.
 
-## Programm laufen lassen
+## Run the code
 
-Wenn du alle Abhängigkeiten installiert und alle Dateien abgelegt hast, kannst du mit dem Befehl node src/script.js das Programm starten.
+Once you have installed all dependencies and placed all files, you can start the program with the command `node src/script.js`
