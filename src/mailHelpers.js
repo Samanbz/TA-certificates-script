@@ -14,6 +14,7 @@ export async function sendMail(transporter, submission) {
 	let mailOptions = {
 		from: process.env.SENDER_EMAIL,
 		to: submission.email,
+		bcc: process.env.BCC_EMAIL,
 		subject: "Dein TechAcademy-Zertifikat",
 		html: `
 			<p>Lieber ${submission.firstName},</p>
