@@ -10,7 +10,7 @@ export function createTransporter() {
 	});
 }
 
-export function sendMail(transporter, submission) {
+export async function sendMail(transporter, submission) {
 	let mailOptions = {
 		from: process.env.SENDER_EMAIL,
 		to: submission.email,
@@ -74,5 +74,5 @@ export function sendMail(transporter, submission) {
 		],
 	};
 
-	transporter.sendMail(mailOptions);
+	return transporter.sendMail(mailOptions);
 }

@@ -1,23 +1,39 @@
-import { config } from "dotenv";
 import {
 	readTemplateFile,
 	fillTemplate,
 	generateCertificate,
 } from "./wordHelpers.js";
 import { getSubmissions, prepareData } from "./excelHelpers.js";
-import { createTransporter, sendMail } from "./mailHelpers.js";
+import { initProgressBar } from "./progressBar.js";
 
 async function main() {
-	config();
-	let submissions = getSubmissions();
-	let cleanSubmissions = prepareData(submissions);
-	let transporter = createTransporter();
+	const submissions = getSubmissions();
+	const cleanSubmissions = prepareData(submissions);
+	const progressBar = initProgressBar(cleanSubmissions.length);
+	let error = null;
 
 	for (let submission of cleanSubmissions) {
-		const template = readTemplateFile(submission.track, submission.level);
-		const filledTemplate = await fillTemplate(template, submission);
-		await generateCertificate(filledTemplate, submission.fileName);
-		sendMail(transporter, submission);
+		try {
+			const template = readTemplateFile(
+				submission.track,
+				submission.level
+			);
+			progressBar.increment(0.25);
+
+			const filledTemplate = await fillTemplate(template, submission);
+			progressBar.increment(0.25);
+
+			await generateCertificate(filledTemplate, submission.fileName);
+			progressBar.increment(0.5);
+		} catch (error) {
+			error = true;
+			return `Error generating certificate for ${submission}: ${error}`;
+		}
+	}
+
+	if (!error) {
+		progressBar.stop();
+		console.log("Done! Check the output folder for your certificates.");
 	}
 }
 
