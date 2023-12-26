@@ -2,6 +2,7 @@ import {
 	readTemplateFile,
 	fillTemplate,
 	generateCertificate,
+	generateCommentFile,
 } from "./wordHelpers.js";
 import { getSubmissions, prepareData } from "./excelHelpers.js";
 import { initProgressBar } from "./progressBar.js";
@@ -18,13 +19,16 @@ async function main() {
 				submission.track,
 				submission.level
 			);
-			progressBar.increment(0.25);
+			progressBar.increment(0.2);
 
 			const filledTemplate = await fillTemplate(template, submission);
-			progressBar.increment(0.25);
+			progressBar.increment(0.2);
 
 			await generateCertificate(filledTemplate, submission.fileName);
-			progressBar.increment(0.5);
+			progressBar.increment(0.3);
+
+			await generateCommentFile(submission);
+			progressBar.increment(0.3);
 		} catch (error) {
 			error = true;
 			return `Error generating certificate for ${submission}: ${error}`;

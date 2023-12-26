@@ -10,6 +10,7 @@ export function getSubmissions() {
 			D: "level",
 			E: "workshops",
 			F: "email",
+			G: "comment",
 		},
 	});
 	return result.Tabelle1.slice(1);

@@ -140,3 +140,57 @@ async function convertToPdf(wordPath, pdfPath) {
 
 	writeFileSync(pdfPath, pdfDoc);
 }
+
+export async function generateCommentFile(submission) {
+	const commentTemplatePath = `${process.cwd()}/templates/Kommentar.docx`;
+	const commentPath = `${process.cwd()}/certificates/comment/${
+		submission.fileName
+	}_comment.docx`;
+	const pdfPath = `${process.cwd()}/certificates/pdf/${
+		submission.fileName
+	}_comment.pdf`;
+
+	const commentTemplate = readFileSync(commentTemplatePath);
+
+	const commentDocument = await patchDocument(commentTemplate, {
+		patches: {
+			date: {
+				type: PatchType.PARAGRAPH,
+				children: [
+					new TextRun({
+						text: new Date().toLocaleDateString("de-DE"),
+						font: "Fira Code Light",
+						size: "12pt",
+						color: "000000",
+					}),
+				],
+			},
+			vorname: {
+				type: PatchType.PARAGRAPH,
+				children: [
+					new TextRun({
+						text: submission.firstName,
+						font: "Fira Code Light",
+						size: "10pt",
+						color: "000000",
+					}),
+				],
+			},
+			comment: {
+				type: PatchType.PARAGRAPH,
+				children: [
+					new TextRun({
+						text: submission.comment,
+						font: "Quicksand",
+						size: "10pt",
+						color: "000000",
+					}),
+				],
+			},
+		},
+	});
+
+	writeFileSync(commentPath, commentDocument);
+
+	await convertToPdf(commentPath, pdfPath);
+}
