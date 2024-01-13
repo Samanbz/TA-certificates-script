@@ -32,8 +32,9 @@ async function main() {
 		} catch (err) {
 			error = true;
 			console.log(
-				`Error generating certificate for ${submission.name}: ${err.message}`
+				`Error generating certificate for ${submission.name}`
 			);
+			console.log(err.message);
 			throw err;
 		}
 	}
