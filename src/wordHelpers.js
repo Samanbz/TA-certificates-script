@@ -17,7 +17,7 @@ export async function fillTemplate(document, data) {
 		workshopsIntro.push(
 			new TextRun({
 				text: `${data.firstName} also took part in workshops with the following companies: `,
-				font: "Quicksand",
+				font: "Inter Tight",
 				size: "10pt",
 				color: "000000",
 			})
@@ -33,7 +33,7 @@ export async function fillTemplate(document, data) {
 					children: [
 						new TextRun({
 							text: workshop,
-							font: "Quicksand",
+							font: "Inter Tight",
 							size: "10pt",
 							color: "000000",
 						}),
@@ -50,36 +50,40 @@ export async function fillTemplate(document, data) {
 				children: [
 					new TextRun({
 						text: data.name,
-						font: "Quicksand",
-						size: "14pt",
-						color: "2F5496",
+						font: "Urbanist",
+						size: "18pt",
+						color: "1e3770",
 						bold: true,
 					}),
 				],
 			},
-			vorname: {
-				type: PatchType.PARAGRAPH,
-				children: [
-					new TextRun({
-						text: data.firstName,
-						font: "Quicksand",
-						size: "10pt",
-						color: "000000",
-					}),
-				],
-			},
-			track: {
-				type: PatchType.PARAGRAPH,
-				children: [
-					new TextRun({
-						text: data.trackEn,
-						font: "Quicksand",
-						size: "14pt",
-						color: "2F5496",
-						bold: true,
-					}),
-				],
-			},
+			// if you want to show the first name, uncomment the follwing object
+			// vorname: {
+			// 	type: PatchType.PARAGRAPH,
+			// 	children: [
+			// 		new TextRun({
+			// 			text: data.firstName,
+			// 			font: "Quicksand",
+			// 			size: "10pt",
+			// 			color: "000000",
+			// 		}),
+			// 	],
+			// },
+
+			// if you want to show the track name, uncomment the follwing object
+			// track: {
+			// 	type: PatchType.PARAGRAPH,
+			// 	children: [
+			// 		new TextRun({
+			// 			text: data.trackEn,
+			// 			font: "Quicksand",
+			// 			size: "14pt",
+			// 			color: "2F5496",
+			// 			bold: true,
+			// 		}),
+			// 	],
+			// },
+
 			// Show only the workshops paragraph if workshops were attended
 			...(data.workshops?.length > 0
 				? {
@@ -87,13 +91,13 @@ export async function fillTemplate(document, data) {
 							type: PatchType.PARAGRAPH,
 							children: workshopsIntro,
 						},
-				  }
+					}
 				: {
 						workshops: {
 							type: PatchType.PARAGRAPH,
 							children: [],
 						},
-				  }),
+					}),
 			// Show only the workshops list if workshops were attended
 			...(data.workshops?.length > 0
 				? {
@@ -101,19 +105,19 @@ export async function fillTemplate(document, data) {
 							type: PatchType.DOCUMENT,
 							children: workshopParagraphs,
 						},
-				  }
+					}
 				: {
 						workshopsList: {
 							type: PatchType.DOCUMENT,
 							children: [],
 						},
-				  }),
+					}),
 			date: {
 				type: PatchType.PARAGRAPH,
 				children: [
 					new TextRun({
 						text: new Date().toLocaleDateString("de-DE"),
-						font: "Quicksand",
+						font: "Inter Tight",
 						size: "10pt",
 						color: "000000",
 						bold: true,
