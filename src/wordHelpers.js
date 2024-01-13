@@ -5,6 +5,9 @@ import { promisify } from "util";
 let convertAsync = promisify(libreoffice.convert);
 
 export function readTemplateFile(track, level) {
+	if (track === "Projektmanagement") {
+		return readFileSync(`${process.cwd()}/templates/${track}.docx`);
+	}
 	return readFileSync(`${process.cwd()}/templates/${track} ${level}.docx`);
 }
 
@@ -25,23 +28,39 @@ export async function fillTemplate(document, data) {
 	}
 
 	if (data.workshops.length > 0) {
+		workshopParagraphs.push(
+			new Paragraph({
+				bullet: { level: 0 },
+				children: data.workshops.map((workshop) => {
+					new TextRun({
+						text: workshop,
+						font: "Inter Tight",
+						size: "10pt",
+						color: "000000",
+					});
+				}),
+			})
+		);
 		// Add bullet point for each workshop
-		for (let workshop of data.workshops) {
-			workshopParagraphs.push(
-				new Paragraph({
-					bullet: { level: 0 },
-					children: [
-						new TextRun({
-							text: workshop,
-							font: "Inter Tight",
-							size: "10pt",
-							color: "000000",
-						}),
-					],
-				})
-			);
-		}
+		// for (let workshop of data.workshops) {
+		// 	workshopParagraphs.push(
+		// 		new Paragraph({
+		// 			bullet: { level: 0 },
+		// 			children: [
+		// 				new TextRun({
+		// 					text: workshop,
+		// 					font: "Inter Tight",
+		// 					size: "10pt",
+		// 					color: "000000",
+		// 				}),
+		// 			],
+		// 		})
+		// 	);
+		// }
 	}
+
+	console.log(JSON.stringify(workshopParagraphs), "workshopParagraphs");
+	console.log("for ", data.name);
 
 	return await patchDocument(document, {
 		patches: {
@@ -112,17 +131,18 @@ export async function fillTemplate(document, data) {
 							children: [],
 						},
 					}),
-			date: {
-				type: PatchType.PARAGRAPH,
-				children: [
-					new TextRun({
-						text: new Date().toLocaleDateString("de-DE"),
-						font: "Inter Tight",
-						size: "10pt",
-						color: "000000",
-					}),
-				],
-			},
+			// if you want to show the date, uncomment the follwing object
+			// date: {
+			// 	type: PatchType.PARAGRAPH,
+			// 	children: [
+			// 		new TextRun({
+			// 			text: new Date().toLocaleDateString("de-DE"),
+			// 			font: "Inter Tight",
+			// 			size: "10pt",
+			// 			color: "000000",
+			// 		}),
+			// 	],
+			// },
 		},
 	});
 }
@@ -184,7 +204,7 @@ export async function generateCommentFile(submission) {
 				children: [
 					new TextRun({
 						text: submission.comment,
-						font: "Quicksand",
+						font: "Fira Code Light",
 						size: "10pt",
 						color: "000000",
 					}),

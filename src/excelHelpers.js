@@ -50,7 +50,11 @@ export function prepareData(submissions) {
 		}
 
 		// Create file name
-		submission.fileName = `${submission.trackEn} ${submission.levelEn} ${submission.name}`;
+		if (submission.track === "Projektmanagement") {
+			submission.fileName = `${submission.trackEn} ${submission.name}`;
+		} else {
+			submission.fileName = `${submission.trackEn} ${submission.levelEn} ${submission.name}`;
+		}
 	}
 
 	return submissions;
