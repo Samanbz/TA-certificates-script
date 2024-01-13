@@ -98,15 +98,6 @@ export async function generateCertificate(document, fileName) {
 
 	writeFileSync(wordPath, document);
 
-	await convertToPdf(wordPath, pdfPath);
-}
-
-async function convertToPdf(wordPath, pdfPath) {
-	const file = readFileSync(wordPath);
-
-	const pdfDoc = await convertAsync(file, ".pdf", undefined);
-
-	writeFileSync(pdfPath, pdfDoc);
 }
 
 export async function generateCommentFile(submission) {
@@ -159,6 +150,4 @@ export async function generateCommentFile(submission) {
 	});
 
 	writeFileSync(commentPath, commentDocument);
-
-	await convertToPdf(commentPath, pdfPath);
 }
