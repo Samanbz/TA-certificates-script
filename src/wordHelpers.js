@@ -28,39 +28,23 @@ export async function fillTemplate(document, data) {
 	}
 
 	if (data.workshops.length > 0) {
-		workshopParagraphs.push(
-			new Paragraph({
-				bullet: { level: 0 },
-				children: data.workshops.map((workshop) => {
-					new TextRun({
-						text: workshop,
-						font: "Inter Tight",
-						size: "10pt",
-						color: "000000",
-					});
-				}),
-			})
-		);
 		// Add bullet point for each workshop
-		// for (let workshop of data.workshops) {
-		// 	workshopParagraphs.push(
-		// 		new Paragraph({
-		// 			bullet: { level: 0 },
-		// 			children: [
-		// 				new TextRun({
-		// 					text: workshop,
-		// 					font: "Inter Tight",
-		// 					size: "10pt",
-		// 					color: "000000",
-		// 				}),
-		// 			],
-		// 		})
-		// 	);
-		// }
+		for (let workshop of data.workshops) {
+			workshopParagraphs.push(
+				new Paragraph({
+					bullet: { level: 0 },
+					children: [
+						new TextRun({
+							text: workshop,
+							font: "Inter Tight",
+							size: "10pt",
+							color: "000000",
+						}),
+					],
+				})
+			);
+		}
 	}
-
-	console.log(JSON.stringify(workshopParagraphs), "workshopParagraphs");
-	console.log("for ", data.name);
 
 	return await patchDocument(document, {
 		patches: {
@@ -76,33 +60,6 @@ export async function fillTemplate(document, data) {
 					}),
 				],
 			},
-			// if you want to show the first name, uncomment the follwing object
-			// vorname: {
-			// 	type: PatchType.PARAGRAPH,
-			// 	children: [
-			// 		new TextRun({
-			// 			text: data.firstName,
-			// 			font: "Quicksand",
-			// 			size: "10pt",
-			// 			color: "000000",
-			// 		}),
-			// 	],
-			// },
-
-			// if you want to show the track name, uncomment the follwing object
-			// track: {
-			// 	type: PatchType.PARAGRAPH,
-			// 	children: [
-			// 		new TextRun({
-			// 			text: data.trackEn,
-			// 			font: "Quicksand",
-			// 			size: "14pt",
-			// 			color: "2F5496",
-			// 			bold: true,
-			// 		}),
-			// 	],
-			// },
-
 			// Show only the workshops paragraph if workshops were attended
 			...(data.workshops?.length > 0
 				? {
@@ -131,18 +88,6 @@ export async function fillTemplate(document, data) {
 							children: [],
 						},
 					}),
-			// if you want to show the date, uncomment the follwing object
-			// date: {
-			// 	type: PatchType.PARAGRAPH,
-			// 	children: [
-			// 		new TextRun({
-			// 			text: new Date().toLocaleDateString("de-DE"),
-			// 			font: "Inter Tight",
-			// 			size: "10pt",
-			// 			color: "000000",
-			// 		}),
-			// 	],
-			// },
 		},
 	});
 }
