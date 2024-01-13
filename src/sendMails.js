@@ -31,9 +31,13 @@ async function main() {
 		try {
 			await sendMail(transporter, submission);
 			progressBar.increment();
-		} catch (error) {
+		} catch (err) {
 			error = true;
-			return `Error sending mail to ${submission}: ${error.message}`;
+			console.log(
+				`Error generating certificate for ${submission.name}`
+			);
+			console.log(err.message);
+			throw err;
 		}
 	}
 
