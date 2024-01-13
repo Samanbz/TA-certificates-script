@@ -3,3 +3,5 @@ node_modules
 .env
 templates/*.docx
 data/Bewertungen.xlsx
+certificates/*/*.docx
+certificates/*/*.pdf
