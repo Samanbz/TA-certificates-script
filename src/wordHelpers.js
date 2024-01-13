@@ -1,8 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { Paragraph, PatchType, TextRun, patchDocument } from "docx";
-import libreoffice from "libreoffice-convert";
-import { promisify } from "util";
-let convertAsync = promisify(libreoffice.convert);
 
 export function readTemplateFile(track, level) {
 	if (track === "Projektmanagement") {
@@ -32,7 +29,7 @@ export async function fillTemplate(document, data) {
 		for (let workshop of data.workshops) {
 			workshopParagraphs.push(
 				new Paragraph({
-					bullet: { level: 0 },
+					bullet: { level: 1 },
 					children: [
 						new TextRun({
 							text: workshop,
@@ -97,7 +94,6 @@ export async function generateCertificate(document, fileName) {
 	const pdfPath = `${process.cwd()}/certificates/pdf/${fileName}.pdf`;
 
 	writeFileSync(wordPath, document);
-
 }
 
 export async function generateCommentFile(submission) {
