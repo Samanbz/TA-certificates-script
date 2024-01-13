@@ -43,28 +43,35 @@ You can follow these steps to get your app password:
 
 For the script to work, you need to place the Excel file with the ratings in the `data` folder. Make sure that the file is named `Bewertungen.xlsx`. The Excel file must have the following columns in the correct order and the individual rows must be in the correct format:
 
-| Vorname | Nachname   | Track                   | Level           | Workshops                      | Email             |
-| ------- | ---------- | ----------------------- | --------------- | ------------------------------ | ----------------- |
-| John    | Doe        | Web Development         | Anfänger        | [Unternehmen 1, Unternehmen 2] | email@adresse.com |
-| Max     | Mustermann | Data Science mit R      | Fortgeschritten | [Unternehmen 1]                | email@adresse.com |
-| Lisa    | Musterfrau | Data Science mit Python | Anfänger        | []                             | email@adresse.com |
+| Vorname | Nachname   | Track                   | Level           | Workshops                      | Email             | Kommentar              |
+| ------- | ---------- | ----------------------- | --------------- | ------------------------------ | ----------------- | ---------------------- |
+| John    | Doe        | Web Development         | Anfänger        | [Unternehmen 1, Unternehmen 2] | email@adresse.com | Hallo Lieber, ...      |
+| Max     | Mustermann | Data Science mit R      | Fortgeschritten | [Unternehmen 1]                | email@adresse.com | Sehr gutes Projekt ... |
+| Lisa    | Musterfrau | Data Science mit Python | Anfänger        | []                             | email@adresse.com | ...                    |
 
 ### Word Templates
 
 In addition to the Excel template, the Word templates must also be provided. For each track and for each level, a Word template must be placed in the `templates` folder.
 
-In the template, you must insert the following variables so that the script can fill them out.
+In the template, you can insert the following variables so that the script can fill them out.
 
 -   {{name}}
 -   {{track}}
 -   {{vorname}}
 -   {{workshops}}
 -   {{workshopsList}}
+-   {{date}}
 
-The variable {{workshops}} renders the string ({{data.firstName}} also took part in workshops with the following companies:), if the person has attended at least one workshop.
+The variable {{workshops}} renders the following string, if the person has attended at least one workshop:
+
+`{{data.firstName}} also took part in workshops with the following companies:`
 
 The variable {{workshopsList}} creates a bullet point for each workshop attended if the person has attended at least one workshop.
 
 ## Run the code
 
-Once you have installed all dependencies and placed all files, you can start the program with the command `node src/script.js`
+Once you have installed all dependencies and placed all files, you can start the program:
+
+First you can create all the certificates with the command `npm run create-certificates`. You can inspect the certificates and check for errors in the certificates folder.
+
+If you don't see any mistakes you can run the command `npm run send-email` to send the emails to the participants. This can take a while. You will see a progreebar in the terminal indicating the progress.

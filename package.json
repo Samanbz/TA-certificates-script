@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"create-scripts": "node src/script.js",
+		"create-certificates": "node src/script.js",
 		"send-emails": "node src/sendMails.js"
 	},
 	"keywords": [],
