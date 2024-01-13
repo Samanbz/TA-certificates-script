@@ -120,7 +120,6 @@ export async function fillTemplate(document, data) {
 						font: "Inter Tight",
 						size: "10pt",
 						color: "000000",
-						bold: true,
 					}),
 				],
 			},

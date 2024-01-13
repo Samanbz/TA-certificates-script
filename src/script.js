@@ -29,9 +29,12 @@ async function main() {
 
 			await generateCommentFile(submission);
 			progressBar.increment(0.3);
-		} catch (error) {
+		} catch (err) {
 			error = true;
-			return `Error generating certificate for ${submission}: ${error}`;
+			console.log(
+				`Error generating certificate for ${submission.name}: ${err.message}`
+			);
+			throw err;
 		}
 	}
 
