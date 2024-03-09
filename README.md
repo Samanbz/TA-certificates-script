@@ -22,7 +22,7 @@ npm install
 
 ### Mailversand vorbereiten
 
-With this program, you can also directly send the certificates by email. For this, you need to create a .env file and add two variables. One variable is the email address from which you want to send the certificates and the other variable is your password, which you have to get from the Google Account Manager.
+With this program, you can also directly send the certificates by email. For this, you need to create a .env file and add two variables. One variable is the email address from which you want to send the certificates and the other variable is your password, which you have to get from the Google Account Manager. Follow these [instructions](https://support.google.com/accounts/answer/185833) or do the following:
 
 You can follow these steps to get your app password:
 
