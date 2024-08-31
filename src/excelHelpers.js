@@ -36,7 +36,7 @@ export function prepareData(submissions) {
 			submission.trackEn = "Data Science with R";
 		} else if (submission.track === "Data Science mit Python") {
 			submission.trackEn = "Data Science with Python";
-		} else if (submission.track === "Projektmanagement") {
+		} else if (submission.track === "IT-Projektmanagement") {
 			submission.trackEn = "Project Management";
 		} else if (submission.track === "Web Development") {
 			submission.trackEn = "Web Development";
@@ -50,7 +50,7 @@ export function prepareData(submissions) {
 		}
 
 		// Create file name
-		if (submission.track === "Projektmanagement") {
+		if (submission.track === "IT-Projektmanagement") {
 			submission.fileName = `${submission.trackEn} ${submission.name}`;
 		} else {
 			submission.fileName = `${submission.trackEn} ${submission.levelEn} ${submission.name}`;

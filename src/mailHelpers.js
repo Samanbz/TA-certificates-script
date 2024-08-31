@@ -17,7 +17,7 @@ export async function sendMail(transporter, submission) {
 		bcc: process.env.BCC_EMAIL ?? "",
 		subject: "Dein TechAcademy-Zertifikat",
 		html: `
-			<p>Lieber ${submission.firstName},</p>
+			<p>Hey ${submission.firstName},</p>
 			<p>
 				Vielen Dank für Deine engagierte Teilnahme bei TechAcademy im
 				letzten Semester und herzlichen Glückwunsch zur erfolgreichen
@@ -71,6 +71,12 @@ export async function sendMail(transporter, submission) {
 				path: `${process.cwd()}/certificates/pdf/${
 					submission.fileName
 				}.pdf`,
+			},
+			{
+				filename: `${submission.fileName}_comment.pdf`,
+				path: `${process.cwd()}/certificates/pdf/${
+					submission.fileName
+				}_comment.pdf`,
 			},
 		],
 	};

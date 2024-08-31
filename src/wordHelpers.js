@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { Paragraph, PatchType, TextRun, patchDocument } from "docx";
 
 export function readTemplateFile(track, level) {
-	if (track === "Projektmanagement") {
+	if (track === "IT-Projektmanagement") {
 		return readFileSync(`${process.cwd()}/templates/${track}.docx`);
 	}
 	return readFileSync(`${process.cwd()}/templates/${track} ${level}.docx`);
