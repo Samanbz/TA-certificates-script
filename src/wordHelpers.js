@@ -2,7 +2,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { Paragraph, PatchType, TextRun, patchDocument } from "docx";
 
 export function readTemplateFile(track, level) {
-	if (track === "IT-Projektmanagement") {
+	if (track === "IT-Projektmanagement" || track === "Deep Learning") {
+		// IT Projektmanagement and Deep Learning don't differentiate between beginner and advanced levels
 		return readFileSync(`${process.cwd()}/templates/${track}.docx`);
 	}
 	return readFileSync(`${process.cwd()}/templates/${track} ${level}.docx`);
