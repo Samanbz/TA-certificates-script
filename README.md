@@ -10,8 +10,18 @@ To use this project, first download it from GitHub and then install the required
 
 1. Clone the project
 
+There are two ways to clone the project to your local device.
+
+You can either run this command in the Terminal:
+
 ```bash
-git clone https://github.com/tburakonat/certificates.git
+git clone https://github.com/racc0909/certificates.git
+```
+
+Or you can run this command:
+
+```bash
+git@github.com:racc0909/certificates-script.git
 ```
 
 2. Install the dependencies
