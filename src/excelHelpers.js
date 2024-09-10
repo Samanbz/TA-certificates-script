@@ -23,7 +23,7 @@ export function prepareData(submissions) {
 
 		// Turn string of array into array of strings
 		if (submission.workshops) {
-			let temp = submission.workshops.slice(1, -1).replace(", ", ",");
+			let temp = submission.workshops.slice(1, -1);
 			let workshopsArray = temp.split(",");
 			if (workshopsArray[0] === "") {
 				workshopsArray = [];
@@ -36,10 +36,12 @@ export function prepareData(submissions) {
 			submission.trackEn = "Data Science with R";
 		} else if (submission.track === "Data Science mit Python") {
 			submission.trackEn = "Data Science with Python";
-		} else if (submission.track === "Projektmanagement") {
+		} else if (submission.track === "IT-Projektmanagement") {
 			submission.trackEn = "Project Management";
 		} else if (submission.track === "Web Development") {
 			submission.trackEn = "Web Development";
+		} else if (submission.track === "Deep Learning") {
+			submission.trackEn = "Deep Learning";
 		}
 
 		// Turn german level into english level
@@ -50,7 +52,10 @@ export function prepareData(submissions) {
 		}
 
 		// Create file name
-		if (submission.track === "Projektmanagement") {
+		if (
+			submission.track === "IT-Projektmanagement" ||
+			submission.track === "Deep Learning"
+		) {
 			submission.fileName = `${submission.trackEn} ${submission.name}`;
 		} else {
 			submission.fileName = `${submission.trackEn} ${submission.levelEn} ${submission.name}`;
