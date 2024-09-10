@@ -80,4 +80,4 @@ Once you have installed all dependencies and placed all files, you can start the
 
 First you can create all the certificates with the command `npm run create-certificates`. You can inspect the certificates and check for errors in the certificates folder. If there are no errors you can run the [python script](https://github.com/racc0909/docx_to_pdf) to convert the docx files to pdfs.
 
-If you want to send the pdfs to your participant. You have to put your comments and certificates pdfs into the pdf directory. Then you can run the command `npm run send-email` to send the emails to the participants. This can take a while. You will see a progreebar in the terminal indicating the progress.
+If you want to send the pdfs to your participant. You have to put your comments and certificates pdfs into the pdf directory. Then you can run the command `npm run send-emails` to send the emails to the participants. This can take a while. You will see a progreebar in the terminal indicating the progress.
